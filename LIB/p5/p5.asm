@@ -4,41 +4,40 @@ section .text
     global _start
 
 _start:
-    mov ebx, 0x5C4B2A60
-    add ebx, [matr]
+    mov ebx, 0x5C4B2A60 
+    add ebx, [matr]        ;sumar valor en matr mas ebx
     mov eax, ebx
     call pHex_dw
     call lj
-    xor eax, eax
     mov ax, bx
-    push bx
+    push bx                ;copiar bx en pila
     call pHex_w
     call lj
     mov al, 8
-    mul bl
+    mul bl                 ;multiplicar bl por al (8)
     mov word[N], ax
     call pHex_w
     call lj
     inc word[N]
-    mov ax, [N]
+    mov ax, [N]            ;mover el valor de N al registro ax
     call pHex_w
     call lj
-    mov ax, bx
-    mov bl, 0xFF
+    mov ax, bx              ;poner el valor de bx en ax para la division
+    mov bl, 0xFF            ;byte 0xFF en bl para dividir bl
     div bl
     call pHex_w
     call lj
-    mov al, ah
-    mov ah, 0
-    add word[N], ax
-    mov ax, [N]
+    mov al, ah            ;mover el residuo en ah hacia al
+    mov ah, 0               ;poner el valor anterior de ah (residuo) en 0
+    add word[N], ax        ;sumar los registros de igual size con el valor del residuo
+    mov ax, [N]                
     call pHex_w
     call lj
     dec word[N]
     mov ax, [N]
     call pHex_w
     call lj
-    lahf
+    lahf                    ;cargar las banderas en ah para mostrarlas
     call pHex_b
     call lj
     pop bx
