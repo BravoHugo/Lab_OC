@@ -18,13 +18,13 @@ _start:                     ;tell linker entry point
 	mov al,10 	; cambio de linea
 	call putchar
 
-	mov eax,1234ABCDh ; presenta en pantalla 1234ABCD
+	mov eax,0x4321ABCD ; presenta en pantalla 1234ABCD
 	call pHex_dw
 
 	mov al,0x0a	  ; cambio de lines 10 decimal o bien 0A hex
 	call putchar
 
-	mov eax,0x76543210 ; presenta en pantalla 76543210
+	mov eax,0x7654abcd ; presenta en pantalla 76543210
         call pHex_dw
 
 	mov al,10       ; cambio de linea
@@ -32,4 +32,3 @@ _start:                     ;tell linker entry point
 
 	mov eax, 1	;system call number (sys_exit) -- fin del programa
 	int 0x80        ;call kernel
-
