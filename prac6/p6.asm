@@ -10,7 +10,7 @@ section .text:
 _start:
     mov eax, 0x22446688
     ror eax, 4
-    call pBin_dw
+    call pHex_dw
     call lj
     mov cx, 0x3f48      ;rotar para obtener 0xfa40
     ;mov ax, cx
