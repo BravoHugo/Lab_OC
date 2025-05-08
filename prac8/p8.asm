@@ -44,4 +44,3 @@ capturar_vector:
     fin_ciclo:
         ret
 
-;imprimir_vector:
