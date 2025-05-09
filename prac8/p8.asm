@@ -3,14 +3,24 @@
 section .text
     global _start
 
-section .data:
-    vector db 9
+section .data
+    vector1 times 10 db 0
+    vector2 times 10 db 0
+    N equ 10
 
 _start:
-    mov ecx, 10      ;contador
-    mov ebx, vector     ;memoria
+    mov ebx, vector1         ;memoria
+    mov edx, vector2
     call capturar_vector
-    mov eax, 1      ;sys_exit
+    call imprimir_vector
+    push ebx
+    mov ebx, edx
+    call capturar_vector
+    call imprimir_vector
+    pop ebx
+    call suma_dos_vectores
+    call imprimir_vector
+    mov eax, 1               ;sys_exit
     xor ebx, ebx
     int 0x80
 
@@ -22,25 +32,41 @@ lj:
     ret
 
 capturar_vector:
-    cmp ecx, 10
-    jg fin_ciclo
-    ciclo:
+    mov ecx, N
+    mov esi, 0
+    capturar_ciclo:
         call getch
         sub al, '0'
         cmp al, 0
-        jl ciclo        ;rango por abajo
+        jl capturar_ciclo       ;rango por abajo
         cmp al, 9
-        jg ciclo       ;rango por arriba
-        call pHex_b
+        jg capturar_ciclo        ;rango por arriba
+        call putchar
         call lj
-        mov esi, 0
         mov [ebx+esi], al
         inc esi
-        loop ciclo
-        ;dec byte[ecx]
-        ;cmp ecx, 0
-        ;jz fin_ciclo
-        ;jmp ciclo
-    fin_ciclo:
+        loop capturar_ciclo
         ret
 
+imprimir_vector:
+    mov ecx, N
+    mov esi, 0
+    imprimir_ciclo:
+        mov al, [ebx + esi]     ;moverse en el arreglo
+        add al, '0'             ;convertir a ASCII
+        call pHex_b
+        call lj
+        inc esi
+        loop imprimir_ciclo
+        ret
+
+suma_dos_vectores:
+    mov ecx, N
+    mov esi, 0
+    suma_ciclo:
+        mov al, [ebx + esi]         ;moverse en el arreglo
+        add al, [edx + esi]
+        mov byte[ebx + esi], al
+        inc esi
+        loop suma_ciclo
+        ret
