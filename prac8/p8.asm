@@ -4,6 +4,7 @@ section .text
     global _start
 
 section .data
+<<<<<<< HEAD
     vector1 times 10 db 0
     vector2 times 10 db 0
     N equ 10
@@ -21,6 +22,17 @@ _start:
     call suma_dos_vectores
     call imprimir_vector
     mov eax, 1               ;sys_exit
+=======
+    vector times 10 db 0
+
+_start:
+    mov ecx, 10      ;contador
+    mov ebx, vector     ;memoria
+    mov esi, 0
+    call capturar_vector
+    call imprimir_vector
+    mov eax, 1      ;sys_exit
+>>>>>>> 44332a6 (fix1)
     xor ebx, ebx
     int 0x80
 
@@ -32,9 +44,13 @@ lj:
     ret
 
 capturar_vector:
+<<<<<<< HEAD
     mov ecx, N
     mov esi, 0
     capturar_ciclo:
+=======
+    ciclo:
+>>>>>>> 44332a6 (fix1)
         call getch
         sub al, '0'
         cmp al, 0
@@ -49,6 +65,7 @@ capturar_vector:
         ret
 
 imprimir_vector:
+<<<<<<< HEAD
     mov ecx, N
     mov esi, 0
     imprimir_ciclo:
@@ -70,3 +87,16 @@ suma_dos_vectores:
         inc esi
         loop suma_ciclo
         ret
+=======
+    mov ecx, 10       ; contador
+    mov esi, 0        ; índice
+
+imprimir_ciclo:
+    mov al, [ebx + esi]  ; cargar valor del vector
+    add al, '0'          ; convertir a carácter ASCII
+    call putchar
+    call lj              ; salto de línea
+    inc esi
+    loop imprimir_ciclo
+    ret
+>>>>>>> 44332a6 (fix1)
