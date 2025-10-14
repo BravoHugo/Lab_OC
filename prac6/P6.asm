@@ -1,5 +1,4 @@
 %include "pc_iox.inc"
-extern pHex_dw
 
 section .text
     global _start
@@ -23,7 +22,18 @@ inc word[N]
 mov ax, [N]
 call pHex_w
 call linejump
+mov ax, 0xFF
+mov dx, 0
+div bx
+call pHex_w
+call linejump
+mov ax, dx
+call pHex_w
+call linejump
 pop bx
+
+mov eax, 1
+int 0x80
 
 
 linejump:
