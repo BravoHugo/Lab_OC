@@ -91,7 +91,7 @@ _start:
     call lj
     shl esi, 3
     shl edx, 1
-    adc esi, edx
+    add esi, edx
     mov eax, esi
     call pHex_dw
     call lj
