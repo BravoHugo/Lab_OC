@@ -41,11 +41,11 @@ inciso_b:
 inciso_c:
     mov cx, 3
     mov ah, 1
-ciclo:
     mov al, '*'
+ciclo:
     call putchar
     inc ah
-    cmp ah, 
+    cmp  
     loop ciclo   
     
 
