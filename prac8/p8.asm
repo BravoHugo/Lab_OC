@@ -4,8 +4,6 @@ section .text
     global _start
 
 section .data
-<<<<<<< HEAD
-<<<<<<< HEAD
     vector1 times 10 db 0
     vector2 times 10 db 0
     N equ 10
